@@ -8,9 +8,9 @@ import dev.samstevens.totp.qr.ZxingPngQrGenerator
 import dev.samstevens.totp.secret.DefaultSecretGenerator
 import dev.samstevens.totp.time.SystemTimeProvider
 
-private val secretGenerator = DefaultSecretGenerator(64)
+private val secretGenerator = DefaultSecretGenerator()
 private val systemTimeProvider = SystemTimeProvider()
-private val defaultCodeGenerator = DefaultCodeGenerator(HashingAlgorithm.SHA512)
+private val defaultCodeGenerator = DefaultCodeGenerator()
 private val defaultCodeVerifier = DefaultCodeVerifier(defaultCodeGenerator, systemTimeProvider)
 
 fun createSecret(): String = secretGenerator.generate()
@@ -24,7 +24,7 @@ fun createQrCodeImgBytes(
         .label(username)
         .secret(secret)
         .issuer("MOPCON-2022-KMM")
-        .algorithm(HashingAlgorithm.SHA512)
+        .algorithm(HashingAlgorithm.SHA1)
         .digits(6)
         .period(30)
         .build()
